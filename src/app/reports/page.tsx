@@ -4,7 +4,85 @@ import { useState } from 'react'
 import { useAppSelector } from '@/redux/hooks'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { reports, departments, users } from '@/lib/seedData.js'
+// Mock data for reports
+const reports = [
+  {
+    id: 1,
+    title: 'Water Pipeline Burst',
+    description: 'Major water pipeline burst on Main Street causing flooding',
+    priority: 'critical',
+    status: 'pending',
+    department: 4,
+    assignedTo: 13,
+    location: 'Main Street, Sector 5',
+    createdAt: '2024-01-15T10:30:00Z',
+    updatedAt: '2024-01-15T10:30:00Z'
+  },
+  {
+    id: 2,
+    title: 'Road Pothole Repair',
+    description: 'Large pothole on Highway 23 needs immediate attention',
+    priority: 'high',
+    status: 'in_progress',
+    department: 2,
+    assignedTo: 9,
+    location: 'Highway 23, Km 15',
+    createdAt: '2024-01-14T14:20:00Z',
+    updatedAt: '2024-01-15T09:15:00Z'
+  },
+  {
+    id: 3,
+    title: 'Street Light Malfunction',
+    description: 'Multiple street lights not working in residential area',
+    priority: 'medium',
+    status: 'resolved',
+    department: 3,
+    assignedTo: 11,
+    location: 'Green Valley Colony',
+    createdAt: '2024-01-13T16:45:00Z',
+    updatedAt: '2024-01-14T12:30:00Z'
+  },
+  {
+    id: 4,
+    title: 'Park Maintenance Required',
+    description: 'Central park needs cleaning and maintenance',
+    priority: 'low',
+    status: 'pending',
+    department: 5,
+    assignedTo: 15,
+    location: 'Central Park',
+    createdAt: '2024-01-12T11:00:00Z',
+    updatedAt: '2024-01-12T11:00:00Z'
+  },
+  {
+    id: 5,
+    title: 'Sewage Overflow',
+    description: 'Sewage overflow near residential complex',
+    priority: 'critical',
+    status: 'in_progress',
+    department: 1,
+    assignedTo: 7,
+    location: 'Sunrise Apartments',
+    createdAt: '2024-01-15T08:00:00Z',
+    updatedAt: '2024-01-15T10:00:00Z'
+  }
+]
+
+const departments = [
+  { id: 1, name: 'Sanitation Department' },
+  { id: 2, name: 'Public Works Department' },
+  { id: 3, name: 'Electrical Department' },
+  { id: 4, name: 'Water Department' },
+  { id: 5, name: 'Parks Department' }
+]
+
+const users = [
+  { id: 7, name: 'Staff A' },
+  { id: 9, name: 'Staff C' },
+  { id: 11, name: 'Staff E' },
+  { id: 13, name: 'Staff G' },
+  { id: 15, name: 'Staff I' }
+]
 import { priorityColors, statusColors, formatDate } from '@/lib/utils'
 import { Filter, Search, Plus } from 'lucide-react'
 
