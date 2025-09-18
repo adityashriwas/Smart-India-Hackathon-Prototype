@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { users } from '@/lib/seedData'
+// import { users } from '@/lib/seedData'
 
 interface User {
   id: number
@@ -17,6 +17,26 @@ interface AuthState {
   loading: boolean
   error: string | null
 }
+
+// Mock users data
+const users: User[] = [
+  { id: 1, name: 'Admin User', email: 'admin@gov.in', role: 'admin', isActive: true },
+  { id: 2, name: 'Ravi Kumar', email: 'ravi.sanitation@gov.in', role: 'department_head', department: 1, isActive: true },
+  { id: 3, name: 'Meena Sharma', email: 'meena.publicworks@gov.in', role: 'department_head', department: 2, isActive: true },
+  { id: 4, name: 'Arjun Patel', email: 'arjun.electricity@gov.in', role: 'department_head', department: 3, isActive: true },
+  { id: 5, name: 'Neha Singh', email: 'neha.water@gov.in', role: 'department_head', department: 4, isActive: true },
+  { id: 6, name: 'Amit Gupta', email: 'amit.parks@gov.in', role: 'department_head', department: 5, isActive: true },
+  { id: 7, name: 'Staff A', email: 'staffa.san@gov.in', role: 'staff', department: 1, manager: 2, isActive: true },
+  { id: 8, name: 'Staff B', email: 'staffb.san@gov.in', role: 'staff', department: 1, manager: 2, isActive: true },
+  { id: 9, name: 'Staff C', email: 'staffc.pwc@gov.in', role: 'staff', department: 2, manager: 3, isActive: true },
+  { id: 10, name: 'Staff D', email: 'staffd.pwc@gov.in', role: 'staff', department: 2, manager: 3, isActive: true },
+  { id: 11, name: 'Staff E', email: 'staffe.elc@gov.in', role: 'staff', department: 3, manager: 4, isActive: true },
+  { id: 12, name: 'Staff F', email: 'stafff.elc@gov.in', role: 'staff', department: 3, manager: 4, isActive: true },
+  { id: 13, name: 'Staff G', email: 'staffg.wat@gov.in', role: 'staff', department: 4, manager: 5, isActive: true },
+  { id: 14, name: 'Staff H', email: 'staffh.wat@gov.in', role: 'staff', department: 4, manager: 5, isActive: true },
+  { id: 15, name: 'Staff I', email: 'staffi.prk@gov.in', role: 'staff', department: 5, manager: 6, isActive: true },
+  { id: 16, name: 'Staff J', email: 'staffj.prk@gov.in', role: 'staff', department: 5, manager: 6, isActive: true },
+]
 
 // Demo credentials mapping
 const demoCredentials: Record<string, { password: string; userId: number }> = {
@@ -43,22 +63,6 @@ const initialState: AuthState = {
   isAuthenticated: false,
   loading: false,
   error: null,
-}
-
-// Check for persisted auth state
-if (typeof window !== 'undefined') {
-  const savedAuth = localStorage.getItem('auth')
-  if (savedAuth) {
-    try {
-      const parsedAuth = JSON.parse(savedAuth)
-      if (parsedAuth.user && parsedAuth.isAuthenticated) {
-        initialState.user = parsedAuth.user
-        initialState.isAuthenticated = true
-      }
-    } catch (e) {
-      // Invalid saved state, ignore
-    }
-  }
 }
 
 const authSlice = createSlice({
@@ -92,7 +96,7 @@ const authSlice = createSlice({
       }
     },
     mockLogin: (state, action: PayloadAction<number>) => {
-      const user = users.find(u => u.id === action.payload)
+      const user = users.find((u: User) => u.id === action.payload)
       if (user) {
         state.user = user
         state.isAuthenticated = true
@@ -105,7 +109,7 @@ const authSlice = createSlice({
       const credentials = demoCredentials[email]
       
       if (credentials && credentials.password === password) {
-        const user = users.find(u => u.id === credentials.userId)
+        const user = users.find((u: User) => u.id === credentials.userId)
         if (user) {
           state.user = user
           state.isAuthenticated = true
@@ -127,9 +131,27 @@ const authSlice = createSlice({
         state.loading = false
         state.error = 'Invalid email or password'
       }
+    },
+    restoreAuth: (state) => {
+      // Restore auth state from localStorage after hydration
+      if (typeof window !== 'undefined') {
+        const savedAuth = localStorage.getItem('auth')
+        if (savedAuth) {
+          try {
+            const parsedAuth = JSON.parse(savedAuth)
+            if (parsedAuth.user && parsedAuth.isAuthenticated) {
+              state.user = parsedAuth.user
+              state.isAuthenticated = true
+            }
+          } catch {
+            // Invalid saved state, ignore
+            localStorage.removeItem('auth')
+          }
+        }
+      }
     }
   },
 })
 
-export const { loginStart, loginSuccess, loginFailure, logout, mockLogin, formLogin } = authSlice.actions
+export const { loginStart, loginSuccess, loginFailure, logout, mockLogin, formLogin, restoreAuth } = authSlice.actions
 export default authSlice.reducer

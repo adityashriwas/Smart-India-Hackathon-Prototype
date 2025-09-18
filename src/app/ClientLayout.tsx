@@ -1,16 +1,23 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { store } from '@/redux/store'
 import { ToastProvider } from '@/components/ui/toast'
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
-import { useAppSelector } from '@/redux/hooks'
+import { useAppSelector, useAppDispatch } from '@/redux/hooks'
+import { restoreAuth } from '@/redux/slices/authSlice'
 
 function InnerLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
   const { sidebarOpen } = useAppSelector((state) => state.ui)
+  const dispatch = useAppDispatch()
+
+  // Restore auth state after hydration
+  useEffect(() => {
+    dispatch(restoreAuth())
+  }, [dispatch])
 
   if (!isAuthenticated) {
     return (
