@@ -1,0 +1,79 @@
+1. System components (top-level)
+
+Mobile App / PWA (Citizen)
+
+Photo/video capture, GPS, text/voice input, optional anonymity, presigned upload to storage, submit report metadata.
+
+Ingestion API (Backend)
+
+Receives report metadata, returns presigned S3/IPFS upload URL, writes minimal record to RDBMS, enqueues report for processing, triggers blockchain write (or schedules it as transaction via relayer).
+
+Off-chain DB + Geo Layer
+
+PostgreSQL + PostGIS for geo queries, ward/department mapping, clustering, scoreboard and reporting.
+
+Media Storage
+
+IPFS (for content-addressable storage) or S3 + CDN. For blockchain linking, use IPFS CID or signed S3 presigned URL + anchor hash on chain.
+
+ML/AI Microservices
+
+Image classifier, NLP for text/voice, severity scoring, duplicate detection, clustering/hotspot detection, SLA prediction. Exposed via REST/gRPC. Use GPU nodes for training, CPU for inference.
+
+Smart Contracts (Blockchain Layer)
+
+Report Registry (immutable baseline), SLA/Assignment contract, Reputation & Token contract (incentives), Auditor contract (evidence pointers), Admin governance contract.
+
+Oracles / Relayer
+
+Trusted relayer service (or decentralized oracle) writes off-chain verified events to the chain; signs transactions from municipal authority key(s) or automated system wallet.
+
+Admin Portal (Web)
+
+Map UI, assignment workflows, , graph representation ,manual override, wallet integrations for payouts, analytics views and many more .
+
+Event Bus & Queue
+
+Kafka/RabbitMQ for async decoupling: ingestion → ML → media processing → notifications → blockchain relayer.
+
+Notification Service
+
+Push / SMS / Email; also emits events that might trigger blockchain-state changes (e.g., citizen confirms resolution → triggers reward).
+
+Monitoring & Observability
+
+Prometheus, Grafana, ELK, Sentry, contract monitoring.
+
+2. Unique Value-Add Components (Differentiators)
+
+Citizen Identity & Reputation System
+
+Aadhaar-based KYC integration, citizen reputation scoring based on report accuracy, gamification with civic badges, anonymous reporting with cryptographic proofs for sensitive issues.
+
+AI-Powered Predictive Maintenance
+
+Historical data analysis for proactive issue identification, seasonal pattern recognition (e.g., monsoon drainage issues), resource optimization based on predicted workloads, risk assessment for infrastructure failure.
+
+Cross-Municipal Collaboration Network
+
+Inter-city issue sharing for similar problems, best practices exchange via blockchain consortium, resource pooling for large-scale issues, standardized civic issue taxonomy.
+
+Emergency Response Integration
+
+Real-time escalation for critical issues (gas leaks, accidents), integration with emergency services APIs, crowd-sourced disaster reporting, automated severity assessment using computer vision.
+
+Government Systems Integration
+
+APIs for existing municipal ERP systems, integration with property tax databases for location verification, connection to budget allocation systems for cost tracking, compliance with Digital India initiatives.
+
+Offline-First Mobile Architecture
+
+PWA with service workers for connectivity-poor areas, local SQLite sync with server when online, queue-based report submission, geofenced priority zones for rural areas.
+
+Advanced Analytics & Insights
+
+Citizen sentiment analysis from reports, departmental performance benchmarking, predictive budget planning based on issue trends, ROI calculation for infrastructure investments.
+
+Accessibility & Inclusion
+
+Multi-language voice input (regional languages), visual impairment support with audio feedback, elderly-friendly UI with large fonts/buttons, low-literacy icon-based reporting interface.

@@ -1,10 +1,11 @@
 'use client'
 
+import React from 'react'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { updateReport } from '@/redux/slices/reportSlice'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { reports, users, departments } from '@/lib/seedData.js'
+import { reports, departments } from '@/lib/seedData.js'
 import { FileText, Clock, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function StaffDashboard() {
