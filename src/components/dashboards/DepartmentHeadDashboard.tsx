@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useAppSelector } from '@/redux/hooks'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { reports, departments, users } from '@/lib/seedData.js'

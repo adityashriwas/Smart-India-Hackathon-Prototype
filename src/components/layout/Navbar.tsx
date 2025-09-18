@@ -16,6 +16,8 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(logout())
     setShowUserMenu(false)
+    // Force redirect to login page
+    window.location.href = '/'
   }
 
   return (

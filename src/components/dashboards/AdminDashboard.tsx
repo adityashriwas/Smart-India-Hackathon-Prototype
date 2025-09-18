@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useAppSelector } from '@/redux/hooks'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { reports, departments, users } from '@/lib/seedData.js'
@@ -9,6 +10,7 @@ import { FileText, Users, Building2, AlertTriangle } from 'lucide-react'
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444']
 
 export default function AdminDashboard() {
+
   // Calculate statistics
   const totalReports = reports.length
   const totalUsers = users.length
