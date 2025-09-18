@@ -22,12 +22,32 @@ const Cell = lazy(() => import('recharts').then(module => ({ default: module.Cel
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444']
 
 export default function AdminDashboard() {
+  const [liveData, setLiveData] = React.useState({
+    totalReports: reports.length,
+    totalUsers: users.length,
+    totalDepartments: departments.length,
+    criticalReports: reports.filter(r => r.priority === 'critical').length
+  })
 
-  // Calculate statistics
-  const totalReports = reports.length
-  const totalUsers = users.length
-  const totalDepartments = departments.length
-  const criticalReports = reports.filter(r => r.priority === 'critical').length
+  // Simulate live data updates
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveData(prev => ({
+        totalReports: prev.totalReports + Math.floor(Math.random() * 3),
+        totalUsers: prev.totalUsers + Math.floor(Math.random() * 2),
+        totalDepartments: prev.totalDepartments,
+        criticalReports: prev.criticalReports + Math.floor(Math.random() * 2)
+      }))
+    }, 5000) // Update every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Calculate statistics with live data
+  const totalReports = liveData.totalReports
+  const totalUsers = liveData.totalUsers
+  const totalDepartments = liveData.totalDepartments
+  const criticalReports = liveData.criticalReports
 
   // Reports by status
   const statusData = [
@@ -58,59 +78,73 @@ export default function AdminDashboard() {
         <p className="text-blue-100 text-lg">System overview and management</p>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-blue-700">Total Reports</CardTitle>
-            <div className="p-2 bg-blue-500 rounded-lg">
-              <FileText className="h-5 w-5 text-white" />
+      {/* Statistics Cards with Live Updates */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 animate-slide-in-up">
+          <CardContent className="p-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+            <div className="flex items-center justify-between relative z-10">
+              <div>
+                <p className="text-blue-100 text-sm font-medium">Total Reports</p>
+                <p className="text-3xl font-bold animate-count-up">{totalReports}</p>
+                <div className="flex items-center mt-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                  <span className="text-xs text-blue-200">Live</span>
+                </div>
+              </div>
+              <FileText className="h-8 w-8 text-blue-200 animate-pulse" />
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-blue-900">{totalReports}</div>
-            <p className="text-sm text-blue-600 mt-1">
-              All system reports
-            </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-green-700">Total Users</CardTitle>
-            <div className="p-2 bg-green-500 rounded-lg">
-              <Users className="h-5 w-5 text-white" />
+        <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 animate-slide-in-up" style={{animationDelay: '0.1s'}}>
+          <CardContent className="p-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+            <div className="flex items-center justify-between relative z-10">
+              <div>
+                <p className="text-green-100 text-sm font-medium">Total Users</p>
+                <p className="text-3xl font-bold animate-count-up">{totalUsers}</p>
+                <div className="flex items-center mt-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+                  <span className="text-xs text-green-200">Live</span>
+                </div>
+              </div>
+              <Users className="h-8 w-8 text-green-200 animate-pulse" />
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-green-900">{totalUsers}</div>
-            <p className="text-sm text-green-600 mt-1">Active system users</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-purple-700">Departments</CardTitle>
-            <div className="p-2 bg-purple-500 rounded-lg">
-              <Building2 className="h-5 w-5 text-white" />
+        <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 animate-slide-in-up" style={{animationDelay: '0.2s'}}>
+          <CardContent className="p-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+            <div className="flex items-center justify-between relative z-10">
+              <div>
+                <p className="text-purple-100 text-sm font-medium">Departments</p>
+                <p className="text-3xl font-bold animate-count-up">{totalDepartments}</p>
+                <div className="flex items-center mt-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse mr-2"></div>
+                  <span className="text-xs text-purple-200">Active</span>
+                </div>
+              </div>
+              <Building2 className="h-8 w-8 text-purple-200 animate-pulse" />
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-purple-900">{totalDepartments}</div>
-            <p className="text-sm text-purple-600 mt-1">Active departments</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-red-700">Critical Issues</CardTitle>
-            <div className="p-2 bg-red-500 rounded-lg">
-              <AlertTriangle className="h-5 w-5 text-white" />
+        <Card className="bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 animate-slide-in-up" style={{animationDelay: '0.3s'}}>
+          <CardContent className="p-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+            <div className="flex items-center justify-between relative z-10">
+              <div>
+                <p className="text-red-100 text-sm font-medium">Critical Issues</p>
+                <p className="text-3xl font-bold animate-count-up">{criticalReports}</p>
+                <div className="flex items-center mt-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse mr-2"></div>
+                  <span className="text-xs text-red-200">Alert</span>
+                </div>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-red-200 animate-pulse" />
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-red-900">{criticalReports}</div>
-            <p className="text-sm text-red-600 mt-1">Require immediate attention</p>
           </CardContent>
         </Card>
       </div>
