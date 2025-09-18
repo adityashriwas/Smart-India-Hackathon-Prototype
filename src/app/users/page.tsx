@@ -258,7 +258,7 @@ export default function UsersPage() {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className={userData.isActive ? 'text-red-600 hover:text-red-700' : 'text-green-600 hover:text-green-700'}
+                        className={userData.isActive ? 'text-white hover:text-red-500' : 'text-green-600 hover:text-green-700'}
                       >
                         {userData.isActive ? 'Deactivate' : 'Activate'}
                       </Button>

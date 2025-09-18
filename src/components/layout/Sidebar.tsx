@@ -60,7 +60,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-16 h-[calc(100vh-4rem)] bg-gray-50 border-r border-gray-300 transition-all duration-300 z-40 shadow-sm',
+        'fixed left-0 top-16 h-[calc(100vh-4rem)]  border-r border-gray-300 transition-all duration-300 z-40 shadow-sm',
         sidebarOpen ? 'w-64' : 'w-16'
       )}
     >

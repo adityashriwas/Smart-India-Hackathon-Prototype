@@ -20,11 +20,11 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen bg-blue-50">
       <Navbar />
       <div className="flex min-h-screen pt-16">
         <Sidebar />
-        <main className={`flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
+        <main className={`flex-1 overflow-x-hidden overflow-y-auto bg-blue-50 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
           <div className="p-6">
             {children}
           </div>

@@ -10,14 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-blue-600 text-white hover:bg-blue-700",
-        destructive:
-          "bg-red-500 text-white hover:bg-red-600",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-gray-100 text-gray-900 hover:bg-gray-200",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-blue-600 underline-offset-4 hover:underline",
+        destructive: "bg-blue-700 text-white hover:bg-blue-800",
+        outline: "border border-blue-600 bg-blue-600 text-white hover:bg-blue-700",
+        secondary: "bg-blue-500 text-white hover:bg-blue-600",
+        ghost: "bg-blue-400 text-white hover:bg-blue-500",
+        link: "bg-blue-600 text-white hover:bg-blue-700", // looks like a filled button instead of underline
       },
       size: {
         default: "h-10 px-4 py-2",
