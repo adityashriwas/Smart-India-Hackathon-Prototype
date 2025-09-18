@@ -5,6 +5,8 @@ import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { logout } from '@/redux/slices/authSlice'
 import { toggleSidebar } from '@/redux/slices/uiSlice'
 import { Button } from '@/components/ui/button'
+// import { LanguageSelector } from '@/components/ui/LanguageSelector'
+// import { useTranslation } from '@/lib/i18n'
 import { Bell, Menu, User, LogOut } from 'lucide-react'
 
 export default function Navbar() {
@@ -12,6 +14,7 @@ export default function Navbar() {
   const { unreadCount } = useAppSelector((state) => state.notifications)
   const dispatch = useAppDispatch()
   const [showUserMenu, setShowUserMenu] = useState(false)
+  // const { t } = useTranslation()
 
   const handleLogout = () => {
     dispatch(logout())
@@ -44,6 +47,9 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center space-x-4">
+            {/* Language Selector */}
+            {/* <LanguageSelector compact={true} className="hidden md:block" /> */}
+            
             {/* Notifications */}
             <Button
               variant="ghost"

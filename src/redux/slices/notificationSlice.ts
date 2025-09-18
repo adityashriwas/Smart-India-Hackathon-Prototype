@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { notifications as initialNotifications } from '@/lib/seedData'
+// import { notifications as seedNotifications } from '@/lib/seedData'
 
 interface Notification {
   id: number
@@ -18,9 +18,33 @@ interface NotificationState {
   loading: boolean
 }
 
+// Safe fallback for notifications with mock data
+const initialNotifications: Notification[] = [
+  {
+    id: 1,
+    userId: 1,
+    title: 'New Report Submitted',
+    message: 'A new civic issue has been reported in your area',
+    type: 'info',
+    isRead: false,
+    createdAt: new Date().toISOString(),
+    relatedReportId: 1
+  },
+  {
+    id: 2,
+    userId: 1,
+    title: 'Report Resolved',
+    message: 'Your water supply issue has been resolved',
+    type: 'success',
+    isRead: true,
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+    relatedReportId: 2
+  }
+]
+
 const initialState: NotificationState = {
   notifications: initialNotifications,
-  unreadCount: initialNotifications.filter(n => !n.isRead).length,
+  unreadCount: initialNotifications.filter((n: Notification) => !n.isRead).length,
   loading: false,
 }
 
