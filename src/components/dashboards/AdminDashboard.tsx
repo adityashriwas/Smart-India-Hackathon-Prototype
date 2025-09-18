@@ -2,7 +2,33 @@
 
 import React, { Suspense } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { reports, departments, users } from '@/lib/seedData.js'
+// import { reports, users, departments } from '@/lib/seedData'
+
+// Mock data fallbacks
+const reports = [
+  { id: 1, priority: 'critical', status: 'pending', title: 'Water Pipeline Burst' },
+  { id: 2, priority: 'high', status: 'in_progress', title: 'Road Pothole' },
+  { id: 3, priority: 'medium', status: 'resolved', title: 'Street Light Issue' },
+  { id: 4, priority: 'low', status: 'pending', title: 'Park Maintenance' },
+  { id: 5, priority: 'critical', status: 'pending', title: 'Sewage Overflow' }
+]
+
+const users = [
+  { id: 1, name: 'Admin User', role: 'admin' },
+  { id: 2, name: 'Ravi Kumar', role: 'department_head' },
+  { id: 3, name: 'Meena Sharma', role: 'department_head' },
+  { id: 4, name: 'Staff A', role: 'staff' },
+  { id: 5, name: 'Staff B', role: 'staff' }
+]
+
+const departments = [
+  { id: 1, name: 'Sanitation Department' },
+  { id: 2, name: 'Public Works Department' },
+  { id: 3, name: 'Electrical Department' },
+  { id: 4, name: 'Water Department' },
+  { id: 5, name: 'Parks Department' }
+]
+
 import { FileText, Users, Building2, AlertTriangle, Shield, Settings, UserCheck } from 'lucide-react'
 import { RBACService, mockUsers, type User } from '@/lib/rbac'
 import { 
