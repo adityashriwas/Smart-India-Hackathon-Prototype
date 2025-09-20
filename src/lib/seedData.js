@@ -71,3 +71,11 @@ export const notifications = [
   { id: 9, userId: 15, type: "resolved", message: "Swings repair completed successfully." },
   { id: 10, userId: 16, type: "in_progress", message: "Grass cutting in progress." }
 ];
+
+export const initialReports = [
+  { id: 101, reporterId: 2, title: "Overflowing garbage near market", category: "garbage", department: 1, priority: "high", status: "submitted", assignedTo: 7, createdAt: "2025-09-01" },
+  { id: 102, reporterId: 2, title: "Uncollected trash in colony", category: "garbage", department: 1, priority: "medium", status: "in_progress", assignedTo: 8, createdAt: "2025-09-05" },
+  { id: 103, reporterId: 3, title: "Pothole on main road", category: "pothole", department: 2, priority: "critical", status: "assigned", assignedTo: 9, createdAt: "2025-09-02" },
+  { id: 104, reporterId: 3, title: "Broken footpath tiles", category: "infrastructure", department: 2, priority: "low", status: "resolved", assignedTo: 10, createdAt: "2025-09-03" },
+  { id: 105, reporterId: 4, title: "Streetlight not working in Sector 7", category: "streetlight", department: 3, priority: "medium", status: "submitted", assignedTo: 11, createdAt: "2025-09-04" },
+]

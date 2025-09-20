@@ -25,7 +25,10 @@ export default function TasksPage() {
   const inProgressTasks = myTasks.filter(r => r.status === 'in_progress')
   const completedTasks = myTasks.filter(r => r.status === 'resolved')
 
-  const handleStatusUpdate = (reportId: number, newStatus: string) => {
+  const handleStatusUpdate = (
+    reportId: number,
+    newStatus: 'submitted' | 'in_progress' | 'assigned' | 'resolved'
+  ) => {
     dispatch(updateReport({ id: reportId, updates: { status: newStatus } }))
   }
 

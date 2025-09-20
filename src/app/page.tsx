@@ -36,8 +36,8 @@ export default function LoginPage() {
   const demoCredentials = [
     { email: 'admin@gov.in', password: 'admin123', role: 'Admin' },
     { email: 'ravi.sanitation@gov.in', password: 'dept123', role: 'Department Head' },
-    { email: 'meena.publicworks@gov.in', password: 'dept123', role: 'Department Head' },
-    { email: 'staffa.san@gov.in', password: 'staff123', role: 'Staff' },
+    // { email: 'meena.publicworks@gov.in', password: 'dept123', role: 'Department Head' },
+    // { email: 'staffa.san@gov.in', password: 'staff123', role: 'Staff' },
     { email: 'staffb.san@gov.in', password: 'staff123', role: 'Staff' },
   ]
 

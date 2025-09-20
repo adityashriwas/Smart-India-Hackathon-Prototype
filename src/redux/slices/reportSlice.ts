@@ -30,7 +30,11 @@ interface ReportState {
 }
 
 const initialState: ReportState = {
-  reports: initialReports,
+  reports: initialReports.map(r => ({
+    ...r,
+    priority: r.priority as Report['priority'],
+    status: r.status as Report['status']
+  })),
   loading: false,
   error: null,
   filters: {}
