@@ -111,7 +111,7 @@ const CivicConnectLanding: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-pink-50">
       {/* Navigation */}
-      <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-red-100">
+      <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
@@ -178,6 +178,12 @@ const CivicConnectLanding: React.FC = () => {
           <div className="md:hidden bg-white border-t border-red-100">
             <div className="px-4 py-6 space-y-4">
               <a
+                href="/mission&vision"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Mission & Vision
+              </a>
+              <a
                 href="#features"
                 className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
               >
@@ -189,31 +195,11 @@ const CivicConnectLanding: React.FC = () => {
               >
                 How It Works
               </a>
-              <a
-                href="#testimonials"
-                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#pricing"
-                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
-              >
-                Pricing
-              </a>
-              <a
-                href="#contact"
-                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
-              >
-                Contact
-              </a>
               <div className="pt-4 border-t border-red-100 space-y-3">
-                <button className="w-full text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors font-medium">
-                  Login
-                </button>
-                <button className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium">
-                  Get Started
-                </button>
+                <a
+                href="/signin" className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium">
+                  Official's Login to Portal
+                </a>
               </div>
             </div>
           </div>
@@ -231,7 +217,7 @@ const CivicConnectLanding: React.FC = () => {
         }}
       >
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/10"></div>
 
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-orange-900/60 via-transparent to-blue-900/60"></div>

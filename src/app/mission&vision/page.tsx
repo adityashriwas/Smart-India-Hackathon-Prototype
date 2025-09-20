@@ -1,9 +1,128 @@
-import React from 'react';
-import { Shield, Target, Users, Globe, Award, Heart, Zap, Building2 } from 'lucide-react';
+"use client";
+import React, { useState, useEffect } from 'react';
+import { Shield, Target, Users, Globe, Award, Heart, Zap, Building2, CheckCircle, Clock, Menu, X } from 'lucide-react';
 
 const MissionVisionPage: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % 3);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Mayor of Springfield",
+      image: "/api/placeholder/60/60",
+      quote:
+        "CivicConnect has transformed how we serve our community. Response times improved by 85% in just 3 months.",
+    },
+    {
+      name: "Michael Chen",
+      role: "City Manager, Riverside",
+      image: "/api/placeholder/60/60",
+      quote:
+        "The automated routing feature alone has saved us countless hours. Our departments are more efficient than ever.",
+    },
+    {
+      name: "Dr. Emily Rodriguez",
+      role: "Director of Public Works",
+      image: "/api/placeholder/60/60",
+      quote:
+        "Citizens love the transparency. They can track their reports from submission to resolution. It's game-changing.",
+    },
+  ];
+
+  const stats = [
+    { number: "250K+", label: "Issues Resolved", icon: CheckCircle },
+    { number: "150+", label: "Cities Using", icon: Building2 },
+    { number: "98%", label: "Satisfaction Rate", icon: Heart },
+    { number: "24hr", label: "Avg Response", icon: Clock },
+  ];
   return (
     <div className="min-h-screen bg-white">
+            <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                  CivicConnect
+                </h1>
+                <p className="text-xs text-gray-500">
+                  Municipal Services Platform
+                </p>
+              </div>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-8">
+              <a
+                href="/mission&vision"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Mission & Vision
+              </a>
+              <a
+                href="#features"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Features
+              </a>
+              <a
+                href="#how-it-works"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                How It Works
+              </a>
+            </div>
+
+            <div className="hidden md:flex space-x-3">
+              <a
+                href="/signin"
+                className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium"
+              >
+                Official's Login to Portal
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6 text-gray-400" />
+              ) : (
+                <Menu className="w-6 h-6 text-gray-400" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white">
+            <div className="px-4 py-6 space-y-4">
+              
+              <div className="pt-4 border-t border-red-100 space-y-3">
+                <a
+                href="/signin" className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium">
+                  Official's Login to Portal
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-red-500 to-orange-500 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>

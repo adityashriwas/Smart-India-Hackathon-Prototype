@@ -61,8 +61,8 @@ export default function LoginPage() {
           </div>
         </div>
         <div className="ml-auto">
-          <div className="w-12 h-10 bg-white/20 rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">GOI</span>
+          <div className="p-2 bg-white/20 rounded flex items-center justify-center">
+            <span className="text-white text-xs font-bold">Government Of India</span>
           </div>
         </div>
       </div>
