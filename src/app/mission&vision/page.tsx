@@ -66,23 +66,12 @@ const MissionVisionPage: React.FC = () => {
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
               <a
-                href="/mission&vision"
+                href="/"
                 className="text-gray-600 hover:text-red-500 transition-colors font-medium"
               >
-                Mission & Vision
+                Home
               </a>
-              <a
-                href="#features"
-                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
-              >
-                How It Works
-              </a>
+              
             </div>
 
             <div className="hidden md:flex space-x-3">
@@ -496,7 +485,7 @@ const MissionVisionPage: React.FC = () => {
                 © 2024 CivicConnect. All rights reserved.
               </p>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex space-x-4">
               <a
                 href="#"
                 className="text-gray-600 hover:text-gray-900 transition"
