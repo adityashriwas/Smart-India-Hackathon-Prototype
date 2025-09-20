@@ -1,245 +1,736 @@
-'use client'
+"use client";
+import React, { useState, useEffect } from "react";
+import {
+  Shield,
+  Smartphone,
+  MapPin,
+  Clock,
+  Users,
+  Star,
+  Download,
+  Play,
+  CheckCircle,
+  ArrowRight,
+  Menu,
+  X,
+  Zap,
+  Award,
+  Globe,
+  Camera,
+  Bell,
+  BarChart3,
+  Settings,
+  MessageSquare,
+  Heart,
+  Building2,
+  Target,
+} from "lucide-react";
 
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { formLogin } from '@/redux/slices/authSlice'
+const CivicConnectLanding: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useAppDispatch()
-  const router = useRouter()
-  const { isAuthenticated, error: authError } = useAppSelector((state) => state.auth)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    dispatch(formLogin({ email, password }))
-  }
-
+  // Auto-rotate testimonials
   useEffect(() => {
-    if (isAuthenticated) {
-      router.replace('/dashboard')
-    }
-  }, [isAuthenticated, router])
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % 3);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
-  // Don't render login form if already authenticated
-  if (isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    )
-  }
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Mayor of Springfield",
+      image: "/api/placeholder/60/60",
+      quote:
+        "CivicConnect has transformed how we serve our community. Response times improved by 85% in just 3 months.",
+    },
+    {
+      name: "Michael Chen",
+      role: "City Manager, Riverside",
+      image: "/api/placeholder/60/60",
+      quote:
+        "The automated routing feature alone has saved us countless hours. Our departments are more efficient than ever.",
+    },
+    {
+      name: "Dr. Emily Rodriguez",
+      role: "Director of Public Works",
+      image: "/api/placeholder/60/60",
+      quote:
+        "Citizens love the transparency. They can track their reports from submission to resolution. It's game-changing.",
+    },
+  ];
 
-  // Demo credentials for easy access
-  const demoCredentials = [
-    { email: 'admin@gov.in', password: 'admin123', role: 'Admin' },
-    { email: 'ravi.sanitation@gov.in', password: 'dept123', role: 'Department Head' },
-    // { email: 'meena.publicworks@gov.in', password: 'dept123', role: 'Department Head' },
-    // { email: 'staffa.san@gov.in', password: 'staff123', role: 'Staff' },
-    { email: 'staffb.san@gov.in', password: 'staff123', role: 'Staff' },
-  ]
+  const stats = [
+    { number: "250K+", label: "Issues Resolved", icon: CheckCircle },
+    { number: "150+", label: "Cities Using", icon: Building2 },
+    { number: "98%", label: "Satisfaction Rate", icon: Heart },
+    { number: "24hr", label: "Avg Response", icon: Clock },
+  ];
+
+  const features = [
+    {
+      icon: Camera,
+      title: "Photo & Video Reports",
+      description:
+        "Citizens can capture issues with multimedia evidence for better context and faster resolution.",
+    },
+    {
+      icon: MapPin,
+      title: "GPS Auto-Location",
+      description:
+        "Automatically tag exact locations with precise GPS coordinates for accurate department routing.",
+    },
+    {
+      icon: Bell,
+      title: "Real-time Notifications",
+      description:
+        "Keep everyone informed with instant updates on report status, assignments, and resolutions.",
+    },
+    {
+      icon: BarChart3,
+      title: "Advanced Analytics",
+      description:
+        "Comprehensive dashboards with insights into trends, performance metrics, and citizen satisfaction.",
+    },
+    {
+      icon: Zap,
+      title: "Smart Routing",
+      description:
+        "AI-powered system automatically routes issues to the right department based on type and priority.",
+    },
+    {
+      icon: Settings,
+      title: "Admin Controls",
+      description:
+        "Powerful administrative tools for managing teams, workflows, and municipal service operations.",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Header */}
-      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-orange-500 to-orange-600 h-16 flex items-center px-6 z-20 shadow-lg">
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-md">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle cx="50" cy="50" r="45" fill="#FF6B35" stroke="#FFF" strokeWidth="2"/>
-              <circle cx="50" cy="35" r="12" fill="#FFF"/>
-              <rect x="45" y="45" width="10" height="20" fill="#FFF"/>
-              <polygon points="35,65 50,55 65,65 60,75 40,75" fill="#FFF"/>
-              <text x="50" y="85" textAnchor="middle" fontSize="8" fill="#FFF" fontWeight="bold">JH</text>
-            </svg>
-          </div>
-          <div>
-            <h1 className="text-white font-bold text-lg">Jharkhand Municipal Corporation</h1>
-            <p className="text-orange-100 text-xs">Government of Jharkhand</p>
-          </div>
-        </div>
-        <div className="ml-auto">
-          <div className="w-12 h-10 bg-white/20 rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">GOI</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Left side - Heritage building background */}
-      <div className="flex-1 relative pt-16 overflow-hidden">
-        {/* Background image with overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/heritage-building.jpg')`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          }}
-        >
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/40"></div>
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-900/60 via-transparent to-blue-900/60"></div>
-        </div>
-
-        {/* Content overlay */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center text-white p-8">
-          <div className="text-center max-w-2xl">
-            <h2 className="text-5xl font-bold mb-6 text-shadow-lg">
-              Digital India Initiative
-            </h2>
-            <p className="text-xl mb-8 text-gray-200 leading-relaxed">
-              Empowering citizens through technology. Report civic issues, track progress, and build a better community together.
-            </p>
-            <div className="flex items-center justify-center space-x-8 text-sm">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Secure Portal</span>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-pink-50">
+      {/* Navigation */}
+      <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-red-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                <Shield className="w-6 h-6 text-white" />
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                <span>24/7 Service</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
-                <span>Real-time Updates</span>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                  CivicConnect
+                </h1>
+                <p className="text-xs text-gray-500">
+                  Municipal Services Platform
+                </p>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Decorative elements */}
-        <div className="absolute bottom-8 left-8 text-white/60 text-sm">
-          <p>Heritage Architecture of India</p>
-        </div>
-      </div>
-
-      {/* Right side - Login form */}
-      <div className="w-96 bg-white pt-16 px-8 py-8 flex flex-col justify-center shadow-2xl">
-        <div className="bg-white rounded-2xl p-8">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Secure Login</h2>
-            <p className="text-gray-600 text-sm">Access your municipal services account</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
-                Email Address
-              </label>
-              <div className="relative">
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-200 bg-gray-50 focus:bg-white"
-                  required
-                />
-                <svg className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                </svg>
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-200 bg-gray-50 focus:bg-white"
-                  required
-                />
-                <svg className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-            </div>
-            
-            {authError && (
-              <div className="bg-red-50 border-l-4 border-red-400 text-red-700 px-4 py-3 rounded-r-lg text-sm">
-                <div className="flex items-center">
-                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                  {authError}
-                </div>
-              </div>
-            )}
-            
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-              disabled={false}
-            >
-              {false ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Signing in...</span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center space-x-2">
-                  <span>Sign In</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                  </svg>
-                </div>
-              )}
-            </button>
-
-            <div className="text-center">
-              <a href="#" className="text-sm text-orange-600 hover:text-orange-800 font-medium">
-                Forgot your password?
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-8">
+              <a
+                href="/mission&vision"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Mission & Vision
+              </a>
+              <a
+                href="#features"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Features
+              </a>
+              <a
+                href="#how-it-works"
+                className="text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                How It Works
               </a>
             </div>
-          </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-orange-50 rounded-xl border border-orange-100">
-            <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center">
-              <svg className="w-4 h-4 mr-2 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-              </svg>
-              Demo Access
-            </h4>
-            <div className="space-y-2">
-              {demoCredentials.slice(0, 3).map((cred, index) => (
-                <div 
-                  key={index} 
-                  className="flex justify-between items-center p-3 bg-white rounded-lg border hover:border-orange-300 cursor-pointer transition-all duration-200 hover:shadow-md"
-                  onClick={() => {
-                    setEmail(cred.email)
-                    setPassword(cred.password)
-                  }}
-                >
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-gray-700">{cred.role}</span>
-                    <span className="text-xs text-gray-500">{cred.email}</span>
-                  </div>
-                  <span className="text-xs text-orange-600 font-mono bg-orange-50 px-2 py-1 rounded">
-                    Click to use
+            <div className="hidden md:flex space-x-3">
+              <a
+                href="/signin"
+                className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium"
+              >
+                Official's Login to Portal
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t border-red-100">
+            <div className="px-4 py-6 space-y-4">
+              <a
+                href="#features"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Features
+              </a>
+              <a
+                href="#how-it-works"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                How It Works
+              </a>
+              <a
+                href="#testimonials"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Testimonials
+              </a>
+              <a
+                href="#pricing"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Pricing
+              </a>
+              <a
+                href="#contact"
+                className="block text-gray-600 hover:text-red-500 transition-colors font-medium"
+              >
+                Contact
+              </a>
+              <div className="pt-4 border-t border-red-100 space-y-3">
+                <button className="w-full text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors font-medium">
+                  Login
+                </button>
+                <button className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium">
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/heritage-building.jpg')`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-900/60 via-transparent to-blue-900/60"></div>
+      </div>
+
+      <section className="relative py-20 lg:py-32 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-red-100/50 via-orange-100/30 to-pink-100/50"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-red-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-orange-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-200/40 rounded-full blur-2xl"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              {/* Badge */}
+              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm text-red-600 px-4 py-2 rounded-full shadow-lg border border-red-100">
+                <Shield className="w-4 h-4" />
+                <span className="font-semibold text-sm">
+                  Trusted by 150+ Municipalities
+                </span>
+              </div>
+
+              {/* Headline */}
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+                  Transform Your
+                  <span className="bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent block">
+                    Civic Services
                   </span>
+                </h1>
+                <p className="text-xl lg:text-2xl leading-relaxed">
+                  Streamline municipal operations, engage citizens, and resolve
+                  community issues faster than ever with our comprehensive civic
+                  management platform.
+                </p>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="flex items-center space-x-8 pt-8 border-t border-red-600">
+                <div className="flex items-center space-x-2">
+                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                  <span className="font-semibold text-gray-200">4.9/5</span>
+                  <span className="text-gray-200">User Rating</span>
                 </div>
-              ))}
+                <div className="flex items-center space-x-2">
+                  <Award className="w-5 h-5 text-red-500" />
+                  <span className="text-gray-200">Gov Certified</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Shield className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-200">SOC 2 Compliant</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Visual */}
+            <div className="relative">
+              {/* Main App Mockup */}
+              <div className="relative bg-gray-100 rounded-3xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-700">
+                <div className="bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl p-6 text-white mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Smartphone className="w-6 h-6" />
+                      <span className="font-semibold">CivicConnect App</span>
+                    </div>
+                    <div className="bg-green-400 w-3 h-3 rounded-full animate-pulse"></div>
+                  </div>
+                  <div className="text-2xl font-bold mb-2">Report an Issue</div>
+                  <div className="text-red-100">
+                    Help improve your community
+                  </div>
+                </div>
+
+                {/* Mock Interface Elements */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                    <div className="flex items-center space-x-3">
+                      <Camera className="w-5 h-5 text-red-500" />
+                      <span className="font-medium text-gray-800">
+                        Add Photo
+                      </span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-red-400" />
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-100">
+                    <div className="flex items-center space-x-3">
+                      <MapPin className="w-5 h-5 text-orange-500" />
+                      <span className="font-medium text-gray-800">
+                        Auto Location
+                      </span>
+                    </div>
+                    <div className="bg-green-500 w-2 h-2 rounded-full"></div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 bg-pink-50 rounded-lg border border-pink-100">
+                    <div className="flex items-center space-x-3">
+                      <MessageSquare className="w-5 h-5 text-pink-500" />
+                      <span className="font-medium text-gray-800">
+                        Description
+                      </span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-pink-400" />
+                  </div>
+
+                  <button className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:from-red-600 hover:to-orange-600 transition-colors">
+                    Submit Report
+                  </button>
+                </div>
+              </div>
+
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -left-4 bg-white shadow-xl rounded-2xl p-4 animate-bounce">
+                <Bell className="w-8 h-8 text-red-500" />
+              </div>
+              <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white rounded-2xl p-4 shadow-xl">
+                <CheckCircle className="w-8 h-8" />
+              </div>
+              <div className="absolute top-1/4 -right-8 bg-white shadow-lg rounded-xl p-3">
+                <div className="text-2xl font-bold text-red-600">98%</div>
+                <div className="text-xs text-gray-500">Success Rate</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center group">
+                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 border border-red-100">
+                  <stat.icon className="w-8 h-8 text-red-500 mx-auto mb-4" />
+                  <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section
+        id="features"
+        className="py-20 bg-gradient-to-b from-red-50/30 to-orange-50/30"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm text-red-600 px-4 py-2 rounded-full shadow-lg border border-red-100 mb-6">
+              <Star className="w-4 h-4" />
+              <span className="font-semibold">Powerful Features</span>
+            </div>
+
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Everything You Need for
+              <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent block lg:inline">
+                {" "}
+                Modern Governance
+              </span>
+            </h2>
+
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              From citizen reporting to administrative dashboards, our platform
+              provides comprehensive tools for efficient municipal management.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="group bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-red-100"
+              >
+                <div className="bg-gradient-to-r from-red-100 to-orange-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              How It{" "}
+              <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                Works
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Simple, intuitive process that gets results fast
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Step 1 */}
+            <div className="text-center relative">
+              <div className="bg-gradient-to-r from-red-500 to-orange-500 w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                1
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-100 mb-6">
+                <Camera className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                <div className="bg-red-50 h-24 rounded-lg mb-4"></div>
+                <div className="text-sm text-gray-500">
+                  Photo + Location + Description
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Citizens Report
+              </h3>
+              <p className="text-gray-600">
+                Citizens easily report issues using our mobile app with photos,
+                GPS location, and descriptions.
+              </p>
+
+              {/* Connector Line */}
+              <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-red-300 to-orange-300 transform translate-y-0"></div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="text-center relative">
+              <div className="bg-gradient-to-r from-red-500 to-orange-500 w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                2
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-100 mb-6">
+                <Zap className="w-12 h-12 text-orange-500 mx-auto mb-4" />
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="bg-orange-100 h-6 rounded"></div>
+                  <div className="bg-orange-200 h-6 rounded"></div>
+                  <div className="bg-orange-300 h-6 rounded"></div>
+                </div>
+                <div className="text-sm text-gray-500">
+                  Smart Department Routing
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Auto-Route & Assign
+              </h3>
+              <p className="text-gray-600">
+                AI automatically routes issues to the right department and
+                assigns priority based on urgency and location.
+              </p>
+
+              {/* Connector Line */}
+              <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-orange-300 to-red-300 transform translate-y-0"></div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center">
+              <div className="bg-gradient-to-r from-red-500 to-orange-500 w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-lg">
+                3
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-100 mb-6">
+                <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
+                <div className="bg-green-50 h-24 rounded-lg mb-4 flex items-center justify-center">
+                  <CheckCircle className="w-8 h-8 text-green-500" />
+                </div>
+                <div className="text-sm text-gray-500">
+                  Issue Resolved & Verified
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Track & Resolve
+              </h3>
+              <p className="text-gray-600">
+                Teams resolve issues efficiently while citizens track progress
+                in real-time until completion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* App Download Section */}
+      <section className="py-20 bg-gradient-to-br from-red-100/50 via-orange-100/30 to-pink-100/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                Download Our
+                <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent block">
+                  Mobile App
+                </span>
+              </h2>
+
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Empower your citizens with direct access to municipal services.
+                Available for both iOS and Android devices.
+              </p>
+
+              <div className="space-y-6 mb-8">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-red-100 to-orange-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <Smartphone className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      Easy Reporting
+                    </div>
+                    <div className="text-gray-600">
+                      One-tap issue submission with photos and location
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-red-100 to-orange-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <Bell className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      Real-time Updates
+                    </div>
+                    <div className="text-gray-600">
+                      Get notified when your reports are being addressed
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-red-100 to-orange-100 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      Track Progress
+                    </div>
+                    <div className="text-gray-600">
+                      See the status of all your submitted reports
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* App Store Button */}
+                <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
+                  <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
+                    <Download className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs">Download on the</div>
+                    <div className="font-semibold">App Store</div>
+                  </div>
+                </button>
+
+                {/* Google Play Button */}
+                <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
+                  <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
+                    <Play className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs">Get it on</div>
+                    <div className="font-semibold">Google Play</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Phone Mockup */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-red-500 to-orange-500 rounded-[3rem] p-4 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700">
+                <div className="bg-white rounded-[2.5rem] p-6 h-[600px] overflow-hidden">
+                  {/* Phone Screen Content */}
+                  <div className="text-center mb-6">
+                    <div className="bg-gradient-to-r from-red-500 to-orange-500 w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="font-bold text-gray-900">CivicConnect</h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="bg-red-50 p-4 rounded-2xl border border-red-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-medium text-gray-800">
+                          Broken Streetlight
+                        </span>
+                        <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs">
+                          High
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Main St & Oak Ave
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">
+                        Reported 2 hours ago
+                      </div>
+                    </div>
+
+                    <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-medium text-gray-800">
+                          Pothole Repair
+                        </span>
+                        <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded-full text-xs">
+                          Medium
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        2nd St & Pine Ave
+                      </div>
+                      <div className="text-xs text-gray-500 mt-2">
+                        Reported 1 hour ago
+                      </div>
+                    </div>
+
+                    <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
+                      <div className="flex items-center justify-between mb-2"></div>
+                      <span className="font-medium text-gray-800">
+                        Graffiti Removal
+                      </span>
+                      <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">
+                        Low
+                      </span>
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      3rd St & Elm Ave
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2">
+                      Reported 30 minutes ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* footer  */}
+      <footer className="bg-gray-100 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div className="text-center md:text-left">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                CivicConnect
+              </h3>
+              <p className="text-gray-600 text-sm">
+                © 2025 CivicConnect. All rights reserved.
+              </p>
+            </div>
+            <div className="flex space-x-6">
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                Terms of Service
+              </a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                Contact Us
+              </a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                About Us
+              </a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                Blog
+              </a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-gray-900 transition"
+              >
+                Careers
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  )
-}
+  );
+};
+
+export default CivicConnectLanding;
