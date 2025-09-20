@@ -38,9 +38,6 @@ export default function Navbar() {
               <Menu className="h-5 w-5" />
             </Button>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <span className="text-blue-600 font-bold text-sm">SIH</span>
-              </div>
               <h1 className="text-xl font-bold">Civic Issue Platform</h1>
             </div>
           </div>

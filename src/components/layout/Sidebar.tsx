@@ -79,7 +79,7 @@ export default function Sidebar() {
                   sidebarOpen ? 'space-x-3' : 'justify-center',
                   isActive
                     ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                 )}
               >
                 <Icon className="h-5 w-5" />
