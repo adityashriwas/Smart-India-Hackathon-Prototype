@@ -155,7 +155,7 @@ const CivicConnectLanding: React.FC = () => {
                 href="/signin"
                 className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium"
               >
-                Official's Login to Portal
+                Login for Officials
               </a>
             </div>
 
@@ -197,7 +197,9 @@ const CivicConnectLanding: React.FC = () => {
               </a>
               <div className="pt-4 border-t border-red-100 space-y-3">
                 <a
-                href="/signin" className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium">
+                  href="/signin"
+                  className="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-orange-600 transition-all shadow-lg font-medium"
+                >
                   Official's Login to Portal
                 </a>
               </div>
@@ -569,26 +571,31 @@ const CivicConnectLanding: React.FC = () => {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 {/* App Store Button */}
-                <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
-                  <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
-                    <Download className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs">Download on the</div>
-                    <div className="font-semibold">App Store</div>
-                  </div>
-                </button>
+                <a href="https://github.com/adityashriwas/Smart-India-Hackathon-Prototype/releases/download/CicicApp/app-release.1.apk">
+                  <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
+                    <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
+                      <Download className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xs">Download on the</div>
+                      <div className="font-semibold">App Store</div>
+                    </div>
+                  </button>
+                </a>
 
                 {/* Google Play Button */}
-                <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
-                  <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
-                    <Play className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs">Get it on</div>
-                    <div className="font-semibold">Google Play</div>
-                  </div>
-                </button>
+
+                <a href="https://github.com/adityashriwas/Smart-India-Hackathon-Prototype/releases/download/CicicApp/app-release.1.apk">
+                  <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center space-x-3 shadow-lg">
+                    <div className="bg-white/20 w-8 h-8 rounded-lg flex items-center justify-center">
+                      <Play className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xs">Get it on</div>
+                      <div className="font-semibold">Google Play</div>
+                    </div>
+                  </button>
+                </a>
               </div>
             </div>
 
