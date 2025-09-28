@@ -64,8 +64,8 @@ export default function StatusScreen() {
           coordinates: { lat: 23.3441, lng: 85.3096 },
           description: 'बड़ा गड्ढा जो यातायात में बाधा डाल रहा है। तत्काल मरम्मत की आवश्यकता है। • Large pothole causing traffic disruption. Immediate repair required.',
           images: [
-            'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-            'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop'
+            'https://www.photos-public-domain.com/wp-content/uploads/2011/11/pothole-in-the-road.jpg',
+            'assets/SVGs/black-broken-asphalt-texture-background.jpg'
           ],
           governmentId: 'JH-PWD-2024-001',
           complainantId: 'CMP2024001',
@@ -264,11 +264,11 @@ export default function StatusScreen() {
             </View>
             <View style={styles.reportMeta}>
               <View style={styles.metaRow}>
-                <MaterialCommunityIcons name="account-tie" size={14} color="#666" />
+                <MaterialCommunityIcons name="" size={14} color="#666" />
                 <Text style={styles.assignedTo}>{item.assignedOfficer}</Text>
               </View>
               <View style={styles.metaRow}>
-                <MaterialCommunityIcons name="calendar" size={14} color="#666" />
+                <MaterialCommunityIcons name="" size={14} color="#666" />
                 <Text style={styles.date}>Reported: {item.reportedOn}</Text>
               </View>
             </View>
@@ -294,7 +294,7 @@ export default function StatusScreen() {
         <View style={styles.reportDetails}>
           <View style={styles.categoryPriorityRow}>
             <View style={styles.categoryTag}>
-              <MaterialCommunityIcons name="tag-outline" size={14} color="#666" />
+              <MaterialCommunityIcons name="" size={14} color="#666" />
               <Text style={styles.categoryText}>{item.category}</Text>
             </View>
             <View style={[styles.priorityTag, { backgroundColor: item.priority === 'High' || item.priority === 'Critical' ? '#ffebee' : '#e8f5e8' }]}>
@@ -324,7 +324,7 @@ export default function StatusScreen() {
 
           {/* Location Information */}
           <View style={styles.locationRow}>
-            <MaterialCommunityIcons name="map-marker" size={14} color="#667eea" />
+            <MaterialCommunityIcons name="" size={14} color="#667eea" />
             <Text style={styles.locationText}>{item.location}</Text>
           </View>
 
@@ -334,16 +334,15 @@ export default function StatusScreen() {
               style={styles.viewDetailsButton}
               onPress={() => openReportDetails(item)}
             >
-              <MaterialCommunityIcons name="eye-outline" size={16} color="#667eea" />
-              <Text style={styles.viewDetailsText}>विवरण • Details</Text>
+              <Text style={styles.viewDetailsText}>विवरण  Details</Text>
+              
             </TouchableOpacity>
 
             <TouchableOpacity 
               style={styles.timelineButton}
               onPress={() => openTimeline(item)}
             >
-              <MaterialCommunityIcons name="timeline-clock" size={16} color="#ff9800" />
-              <Text style={styles.timelineText}>ट्रैकिंग • Timeline</Text>
+              <Text style={styles.timelineText}>ट्रैकिंग  Timeline</Text>
             </TouchableOpacity>
 
             {item.officerPhone !== 'N/A' && (
@@ -351,8 +350,7 @@ export default function StatusScreen() {
                 style={styles.contactButton}
                 onPress={() => Alert.alert('Contact Officer', `Call ${item.assignedOfficer} at ${item.officerPhone}?`)}
               >
-                <MaterialCommunityIcons name="phone" size={16} color="#4caf50" />
-                <Text style={styles.contactText}>संपर्क • Contact</Text>
+                <Text style={styles.contactText}>संपर्क  Contact</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -365,13 +363,10 @@ export default function StatusScreen() {
     <View style={styles.container}>
       <StatusBar backgroundColor="#667eea" barStyle="light-content" />
       
-      {/* Professional Header with Attractive Colors */}
-      <LinearGradient
-        colors={['#667eea', '#764ba2', '#667eea']}
-        style={styles.header}
-      >
+      {/* Professional Header with Single Color */}
+      <View style={styles.header}>
         <View style={styles.headerContent}>
-          <MaterialCommunityIcons name="clipboard-list" size={24} color="#ffffff" />
+          <MaterialCommunityIcons name="" size={24} color="#ffffff" />
           <Text style={styles.headerTitle}>My Reports</Text>
           <Text style={styles.headerSubtitle}>मेरी रिपोर्ट्स</Text>
         </View>
@@ -380,9 +375,13 @@ export default function StatusScreen() {
           style={styles.refreshButton}
           onPress={onRefresh}
         >
-          <MaterialCommunityIcons name="refresh" size={20} color="#ffffff" />
+          <Image 
+            source={require('../../assets/SVGs/refresh.png')}
+            style={styles.refreshIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
-      </LinearGradient>
+      </View>
 
       {/* Reports Summary */}
       <View style={styles.summaryContainer}>
@@ -855,6 +854,7 @@ const styles = StyleSheet.create({
   
   // Header Styles
   header: {
+    backgroundColor: '#667eea',
     paddingTop: Platform.OS === 'ios' ? 50 : 30,
     paddingHorizontal: 20,
     paddingBottom: 20,
@@ -883,6 +883,11 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 20,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  refreshIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#ffffff',
   },
   
   // Summary Cards
@@ -1234,7 +1239,7 @@ const styles = StyleSheet.create({
   timelineButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff7ed',
+    backgroundColor: '#e3f2fd',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 16,
@@ -1242,21 +1247,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     justifyContent: 'center',
     elevation: 2,
-    shadowColor: '#ff9800',
+    shadowColor: '#1976d2',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
   timelineText: {
     fontSize: 12,
-    color: '#ff9800',
+    color: '#1976d2',
     fontWeight: '600',
     marginLeft: 4,
   },
   contactButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0fdf4',
+    backgroundColor: '#e3f2fd',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 16,
@@ -1264,14 +1269,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     justifyContent: 'center',
     elevation: 2,
-    shadowColor: '#4caf50',
+    shadowColor: '#1976d2',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
   },
   contactText: {
     fontSize: 12,
-    color: '#4caf50',
+    color: '#1976d2',
     fontWeight: '600',
     marginLeft: 4,
   },
