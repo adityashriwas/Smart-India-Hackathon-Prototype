@@ -10,7 +10,7 @@ export default function SocialShare({ report, onClose }) {
                      `📝 Description: ${report.description}\n` +
                      `🏷️ Category: ${report.category}\n` +
                      `📅 Reported: ${new Date().toLocaleDateString()}\n\n` +
-                     `Help make our city better! Download the Jharkhand Civic Services app.`;
+                     `Help make our city better! Download the Sudhaar Setu app.`;
 
       const shareOptions = {
         message: message,

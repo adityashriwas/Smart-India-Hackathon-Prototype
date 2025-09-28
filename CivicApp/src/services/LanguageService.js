@@ -17,7 +17,7 @@ const resources = {
       'success': 'Success',
       
       // Onboarding
-      'app_title': 'Jharkhand Civic Services',
+      'app_title': 'Sudhaar Setu',
       'app_subtitle': 'Report • Track • Resolve',
       'get_started': 'Get Started',
       
