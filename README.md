@@ -17,7 +17,7 @@ A comprehensive Next.js 14 demo application for the Smart India Hackathon 2025, 
 #### 🛡️ Admin
 - System-wide overview and analytics
 - Department and user management
-- Complete report oversight
+- Complete report oversights
 - Performance metrics across all departments
 
 #### 👑 Department Head

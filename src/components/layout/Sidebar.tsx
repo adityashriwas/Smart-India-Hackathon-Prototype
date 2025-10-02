@@ -12,12 +12,14 @@ import {
   BarChart3, 
   Settings,
   ClipboardList,
-  UserCheck
+  UserCheck,
+  MapPin
 } from 'lucide-react'
 
 const adminNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/reports', label: 'All Reports', icon: FileText },
+  { href: '/maps', label: 'Interactive Maps', icon: MapPin },
   { href: '/departments', label: 'Departments', icon: Building2 },
   { href: '/users', label: 'Users', icon: Users },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
@@ -27,6 +29,7 @@ const adminNavItems = [
 const departmentHeadNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/reports', label: 'Department Reports', icon: FileText },
+  { href: '/maps', label: 'Area Maps', icon: MapPin },
   { href: '/staff', label: 'Staff Management', icon: UserCheck },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
 ]
@@ -35,6 +38,7 @@ const staffNavItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/tasks', label: 'My Tasks', icon: ClipboardList },
   { href: '/reports', label: 'Reports', icon: FileText },
+  { href: '/maps', label: 'Task Maps', icon: MapPin },
 ]
 
 export default function Sidebar() {
