@@ -96,6 +96,10 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
                     src={report.image}
                     alt={report.title}
                     className="w-full h-64 object-cover rounded-t-lg"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://via.placeholder.com/400x300/e5e7eb/6b7280?text=Image+Not+Available';
+                    }}
                   />
                   <div className="absolute top-4 right-4 flex space-x-2">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium border ${priorityColors[report.priority as keyof typeof priorityColors]}`}>

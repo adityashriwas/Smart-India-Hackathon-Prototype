@@ -45,7 +45,7 @@ export const reports = [
     description: "Large garbage bins are overflowing near the main market area, causing health hazards and bad smell. Immediate attention required.",
     location: "Main Road Market, Ranchi, Jharkhand",
     coordinates: { lat: 23.3441, lng: 85.3096 },
-    image: "https://images.unsplash.com/photo-1586899028174-e7098604235b?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1755526739305-d52307830033?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHx8"
   },
   { 
     id: 102, 
@@ -60,7 +60,7 @@ export const reports = [
     description: "Household waste has not been collected for 4 days in residential colony. Multiple houses affected.",
     location: "Ashok Nagar Colony, Ranchi, Jharkhand",
     coordinates: { lat: 23.3569, lng: 85.3347 },
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1654366800744-b17fc55e8a7e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDMzfHx8ZW58MHx8fHx8"
   },
 
   // Public works
@@ -77,7 +77,7 @@ export const reports = [
     description: "Deep pothole on main road causing accidents and vehicle damage. Traffic is getting affected during peak hours.",
     location: "Circular Road, Jamshedpur, Jharkhand",
     coordinates: { lat: 22.8046, lng: 86.2029 },
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1657811146537-90d7d8133224?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBvdGhvbGV8ZW58MHx8MHx8fDA%3D"
   },
   { 
     id: 104, 
@@ -92,7 +92,7 @@ export const reports = [
     description: "Footpath tiles are broken and uneven, making it difficult for pedestrians to walk safely.",
     location: "Sakchi Area, Jamshedpur, Jharkhand",
     coordinates: { lat: 22.7925, lng: 86.1842 },
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=300&fit=crop"
+    image: "https://www.shutterstock.com/image-photo/pavement-surface-damaged-broken-brick-600nw-2176938397.jpg"
   },
 
   // Electricity
@@ -109,7 +109,7 @@ export const reports = [
     description: "Multiple streetlights are not working in Sector 7, making the area unsafe during night hours.",
     location: "HEC Colony, Ranchi, Jharkhand",
     coordinates: { lat: 23.4241, lng: 85.4419 },
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1660489884265-98a8f8ee00c9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RyZWV0bGlnaHRzfGVufDB8fDB8fHww"
   },
   { 
     id: 106, 
@@ -124,7 +124,7 @@ export const reports = [
     description: "Electrical wire hanging dangerously low near residential area. High risk of electrocution.",
     location: "Bistupur Market, Jamshedpur, Jharkhand",
     coordinates: { lat: 22.7739, lng: 86.1478 },
-    image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1711291066529-eacc7e009dfd?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZWxlY3RyaWMlMjB3aXJlc3xlbnwwfHwwfHx8MA%3D%3D"
   },
 
   // Water supply
@@ -141,7 +141,7 @@ export const reports = [
     description: "Major water pipeline leakage near government school causing waterlogging and wastage.",
     location: "Government High School, Dhanbad, Jharkhand",
     coordinates: { lat: 23.7957, lng: 86.4304 },
-    image: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1526898943670-92bfa9f94c12?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0ZXIlMjBsZWFrfGVufDB8fDB8fHww"
   },
   { 
     id: 108, 
@@ -156,7 +156,7 @@ export const reports = [
     description: "Complete water supply failure in Sector 10. Residents facing severe water shortage for 2 days.",
     location: "Bank More Area, Dhanbad, Jharkhand",
     coordinates: { lat: 23.8103, lng: 86.4538 },
-    image: "https://images.unsplash.com/photo-1597149958500-2cdf92eca7f0?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1675526985295-79f5210563f2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bm8lMjB3YXRlcnxlbnwwfHwwfHx8MA%3D%3D"
   },
 
   // Parks
@@ -173,7 +173,7 @@ export const reports = [
     description: "Children's swings are broken and unsafe. Need immediate repair or replacement.",
     location: "Oxygen Park, Ranchi, Jharkhand",
     coordinates: { lat: 23.3629, lng: 85.3371 },
-    image: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=300&fit=crop"
+    image: "https://media.istockphoto.com/id/1701046764/photo/broken-swing-ii.jpg?s=612x612&w=0&k=20&c=v5HHLQRhm-3dvkeeiRLKb4X7FkAoiXwEEFwf1_PlL10="
   },
   { 
     id: 110, 
@@ -188,7 +188,7 @@ export const reports = [
     description: "Park grass has grown too high and needs cutting. Also requires general maintenance.",
     location: "Jublee Park, Jamshedpur, Jharkhand",
     coordinates: { lat: 22.7868, lng: 86.1890 },
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1716276646499-00447e9d110d?ixlib=rb-4.1.0"
   },
 
   // Extra reports for realism
@@ -220,7 +220,7 @@ export const reports = [
     description: "Bridge railing is damaged and poses safety risk for pedestrians and vehicles.",
     location: "Kharkai Bridge, Jamshedpur, Jharkhand",
     coordinates: { lat: 22.8033, lng: 86.2025 },
-    image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1611005905428-43fd7a372169?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJyb2tlbiUyMGJyaWRnZXxlbnwwfHwwfHx8MA%3D%3D"
   },
   { 
     id: 113, 
@@ -250,7 +250,7 @@ export const reports = [
     description: "Underground water pipe has burst, causing road flooding and water wastage.",
     location: "Main Road, Deoghar, Jharkhand",
     coordinates: { lat: 24.4824, lng: 86.6977 },
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1526898943670-92bfa9f94c12?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0ZXIlMjBsZWFrfGVufDB8fDB8fHww"
   },
   { 
     id: 115, 
@@ -265,7 +265,7 @@ export const reports = [
     description: "Playground boundary fence is damaged allowing stray animals to enter and making it unsafe for children.",
     location: "Sector 4 Park, Bokaro Steel City, Jharkhand",
     coordinates: { lat: 23.6642, lng: 86.1513 },
-    image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1634192208394-ca3f1b2d5898?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJva2VuJTIwZmVuY2V8ZW58MHx8MHx8fDA%3D"
   }
 ];
 
