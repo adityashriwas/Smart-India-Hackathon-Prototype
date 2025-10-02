@@ -14,6 +14,8 @@ interface Report {
   updatedAt?: string
   description?: string
   location?: string
+  coordinates?: { lat: number; lng: number }
+  image?: string
   media?: string[]
 }
 

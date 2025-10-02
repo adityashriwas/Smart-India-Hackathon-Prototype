@@ -120,7 +120,7 @@ const CivicConnectLanding: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
-                  CivicConnect
+                  SudhaarSetu
                 </h1>
                 <p className="text-xs text-gray-500">
                   Municipal Services Platform
@@ -284,7 +284,7 @@ const CivicConnectLanding: React.FC = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <Smartphone className="w-6 h-6" />
-                      <span className="font-semibold">CivicConnect App</span>
+                      <span className="font-semibold">SudhaarSetu App</span>
                     </div>
                     <div className="bg-green-400 w-3 h-3 rounded-full animate-pulse"></div>
                   </div>
@@ -608,7 +608,7 @@ const CivicConnectLanding: React.FC = () => {
                     <div className="bg-gradient-to-r from-red-500 to-orange-500 w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3">
                       <Shield className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-900">CivicConnect</h3>
+                    <h3 className="font-bold text-gray-900">SudhaarSetu</h3>
                   </div>
 
                   <div className="space-y-4">
@@ -675,10 +675,10 @@ const CivicConnectLanding: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-gray-900 mb-2">
-                CivicConnect
+                SudhaarSetu
               </h3>
               <p className="text-gray-600 text-sm">
-                © 2025 CivicConnect. All rights reserved.
+                © 2025 SudhaarSetu. All rights reserved.
               </p>
             </div>
             <div className="flex space-x-6">

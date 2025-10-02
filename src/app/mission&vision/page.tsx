@@ -20,7 +20,7 @@ const MissionVisionPage: React.FC = () => {
       role: "Mayor of Springfield",
       image: "/api/placeholder/60/60",
       quote:
-        "CivicConnect has transformed how we serve our community. Response times improved by 85% in just 3 months.",
+        "Sudhaar Setu has transformed how we serve our community. Response times improved by 85% in just 3 months.",
     },
     {
       name: "Michael Chen",
@@ -55,7 +55,7 @@ const MissionVisionPage: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
-                  CivicConnect
+                  Sudhaar Setu
                 </h1>
                 <p className="text-xs text-gray-500">
                   Municipal Services Platform
@@ -451,7 +451,7 @@ const MissionVisionPage: React.FC = () => {
           </h2>
           
           <p className="text-xl text-red-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join hundreds of municipalities already using CivicConnect to build stronger, more responsive communities. 
+            Join hundreds of municipalities already using Sudhaar Setu to build stronger, more responsive communities. 
             Together, we can bridge the gap between citizens and government.
           </p>
 
@@ -479,10 +479,10 @@ const MissionVisionPage: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-gray-900 mb-2">
-                CivicConnect
+                Sudhaar Setu
               </h3>
               <p className="text-gray-600 text-sm">
-                © 2024 CivicConnect. All rights reserved.
+                © 2024 Sudhaar Setu. All rights reserved.
               </p>
             </div>
             <div className="flex space-x-4">
