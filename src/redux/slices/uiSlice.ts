@@ -11,7 +11,7 @@ interface Toast {
 interface Modal {
   id: string
   type: string
-  data?: any
+  data?: unknown
   isOpen: boolean
 }
 
@@ -48,7 +48,7 @@ const uiSlice = createSlice({
       state.loading = action.payload
     },
     addToast: (state, action: PayloadAction<Omit<Toast, 'id'>>) => {
-      const toast = {
+      const toast: Toast = {
         ...action.payload,
         id: Date.now().toString()
       }
@@ -58,7 +58,7 @@ const uiSlice = createSlice({
       state.toasts = state.toasts.filter(toast => toast.id !== action.payload)
     },
     openModal: (state, action: PayloadAction<Omit<Modal, 'isOpen'>>) => {
-      const modal = {
+      const modal: Modal = {
         ...action.payload,
         isOpen: true
       }

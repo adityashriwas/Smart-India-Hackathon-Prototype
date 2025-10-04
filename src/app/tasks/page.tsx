@@ -7,6 +7,21 @@ import { Button } from '@/components/ui/button'
 import { reports, departments } from '@/lib/seedData.js'
 import { CheckCircle, Clock, AlertCircle, Play, Square } from 'lucide-react'
 
+// Define TaskStatus and Task type locally
+type TaskStatus = 'submitted' | 'in_progress' | 'assigned' | 'resolved'
+
+interface Task {
+  id: number
+  reporterId?: number
+  title: string
+  category: string
+  department: number
+  priority: 'low' | 'medium' | 'high' | 'critical'
+  status: TaskStatus
+  assignedTo: number
+  createdAt: string
+}
+
 export default function TasksPage() {
   const { user } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
@@ -20,27 +35,32 @@ export default function TasksPage() {
     )
   }
 
-  const myTasks = reports.filter(r => r.assignedTo === user.id)
-  const pendingTasks = myTasks.filter(r => r.status === 'assigned')
-  const inProgressTasks = myTasks.filter(r => r.status === 'in_progress')
-  const completedTasks = myTasks.filter(r => r.status === 'resolved')
+  // Cast reports to Task[] locally to satisfy TypeScript
+  const myTasks = (reports as Task[]).filter((r) => r.assignedTo === user.id)
+  const pendingTasks = myTasks.filter((r) => r.status === 'assigned')
+  const inProgressTasks = myTasks.filter((r) => r.status === 'in_progress')
+  const completedTasks = myTasks.filter((r) => r.status === 'resolved')
 
-  const handleStatusUpdate = (reportId: number, newStatus: string) => {
+  const handleStatusUpdate = (reportId: number, newStatus: TaskStatus) => {
     dispatch(updateReport({ id: reportId, updates: { status: newStatus } }))
   }
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status: TaskStatus) => {
     switch (status) {
-      case 'assigned': return <AlertCircle className="h-4 w-4 text-blue-500" />
-      case 'in_progress': return <Clock className="h-4 w-4 text-orange-500" />
-      case 'resolved': return <CheckCircle className="h-4 w-4 text-green-500" />
-      default: return <Square className="h-4 w-4 text-gray-500" />
+      case 'assigned':
+        return <AlertCircle className="h-4 w-4 text-blue-500" />
+      case 'in_progress':
+        return <Clock className="h-4 w-4 text-orange-500" />
+      case 'resolved':
+        return <CheckCircle className="h-4 w-4 text-green-500" />
+      default:
+        return <Square className="h-4 w-4 text-gray-500" />
     }
   }
 
-  const TaskCard = ({ task, showActions = true }: { task: any, showActions?: boolean }) => {
-    const department = departments.find(d => d.id === task.department)
-    
+  const TaskCard = ({ task, showActions = true }: { task: Task; showActions?: boolean }) => {
+    const department = departments.find((d) => d.id === task.department)
+
     return (
       <div className="border rounded-lg p-4 space-y-3">
         <div className="flex justify-between items-start">
@@ -54,17 +74,22 @@ export default function TasksPage() {
             <p className="text-sm text-gray-500">Created: {task.createdAt}</p>
           </div>
           <div className="flex flex-col items-end space-y-2">
-            <span className={`px-2 py-1 rounded-full text-xs ${
-              task.priority === 'critical' ? 'bg-red-100 text-red-800' :
-              task.priority === 'high' ? 'bg-orange-100 text-orange-800' :
-              task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-              'bg-green-100 text-green-800'
-            }`}>
+            <span
+              className={`px-2 py-1 rounded-full text-xs ${
+                task.priority === 'critical'
+                  ? 'bg-red-100 text-red-800'
+                  : task.priority === 'high'
+                  ? 'bg-orange-100 text-orange-800'
+                  : task.priority === 'medium'
+                  ? 'bg-yellow-100 text-yellow-800'
+                  : 'bg-green-100 text-green-800'
+              }`}
+            >
               {task.priority} priority
             </span>
           </div>
         </div>
-        
+
         {showActions && (
           <div className="flex space-x-2 pt-2">
             {task.status === 'assigned' && (
@@ -223,7 +248,7 @@ export default function TasksPage() {
           <CardContent className="text-center py-12">
             <Square className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No Tasks Assigned</h3>
-            <p className="text-gray-500">You don't have any tasks assigned to you yet.</p>
+            <p className="text-gray-500">You don&apos;t have any tasks assigned to you yet.</p>
             <p className="text-gray-400 text-sm mt-2">Check back later or contact your department head.</p>
           </CardContent>
         </Card>

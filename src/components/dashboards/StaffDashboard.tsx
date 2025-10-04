@@ -22,7 +22,10 @@ export default function StaffDashboard() {
   const completed = myReports.filter(r => r.status === 'resolved').length
   const pending = myReports.filter(r => r.status === 'assigned').length
 
-  const handleStatusUpdate = (reportId: number, newStatus: string) => {
+  const handleStatusUpdate = (
+    reportId: number,
+    newStatus: 'submitted' | 'in_progress' | 'assigned' | 'resolved'
+  ) => {
     dispatch(updateReport({ id: reportId, updates: { status: newStatus } }))
   }
 

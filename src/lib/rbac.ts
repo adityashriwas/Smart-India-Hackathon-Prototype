@@ -189,7 +189,6 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     'reports:create',
     'reports:read',
     'reports:update',
-    'reports:view_assigned',
     
     // Basic department viewing
     'departments:read',

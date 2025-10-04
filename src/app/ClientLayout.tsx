@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { Provider } from 'react-redux'
 import { store } from '@/redux/store'
 import { ToastProvider } from '@/components/ui/toast'
@@ -13,13 +14,43 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
   const { sidebarOpen } = useAppSelector((state) => state.ui)
   const dispatch = useAppDispatch()
+  const pathname = usePathname()
+  const router = useRouter()
 
   // Restore auth state after hydration
   useEffect(() => {
     dispatch(restoreAuth())
   }, [dispatch])
 
-  if (!isAuthenticated) {
+  // Pages that should use clean layout (no navbar/sidebar) even when authenticated
+  const publicPages = ['/', '/signin', '/mission&vision']
+  const isPublicPage = publicPages.includes(pathname)
+
+  // Protected routes that require authentication
+  const protectedRoutes = ['/dashboard', '/reports', '/analytics', '/departments', '/users', '/staff', '/tasks']
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
+
+  // Redirect non-authenticated users to signin page when accessing protected routes
+  useEffect(() => {
+    if (!isAuthenticated && isProtectedRoute) {
+      router.replace('/signin')
+    }
+  }, [isAuthenticated, isProtectedRoute, router])
+
+  // Show loading for protected routes when not authenticated (during redirect)
+  if (!isAuthenticated && isProtectedRoute) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Redirecting to login...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Use clean layout for non-authenticated users OR public pages
+  if (!isAuthenticated || isPublicPage) {
     return (
       <div className="min-h-screen bg-gray-50">
         {children}
@@ -27,6 +58,7 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  // Use authenticated layout for dashboard pages
   return (
     <div className="min-h-screen bg-blue-50">
       <Navbar />

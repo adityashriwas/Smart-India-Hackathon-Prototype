@@ -6,11 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 // Mock data fallbacks
 const reports = [
-  { id: 1, priority: 'critical', status: 'pending', title: 'Water Pipeline Burst' },
-  { id: 2, priority: 'high', status: 'in_progress', title: 'Road Pothole' },
-  { id: 3, priority: 'medium', status: 'resolved', title: 'Street Light Issue' },
-  { id: 4, priority: 'low', status: 'pending', title: 'Park Maintenance' },
-  { id: 5, priority: 'critical', status: 'pending', title: 'Sewage Overflow' }
+  { id: 1, priority: 'critical', status: 'pending', title: 'Water Pipeline Burst', department: 4 },
+  { id: 2, priority: 'high', status: 'in_progress', title: 'Road Pothole', department: 2 },
+  { id: 3, priority: 'medium', status: 'resolved', title: 'Street Light Issue', department: 3 },
+  { id: 4, priority: 'low', status: 'pending', title: 'Park Maintenance', department: 5 },
+  { id: 5, priority: 'critical', status: 'pending', title: 'Sewage Overflow', department: 1 }
 ]
 
 const users = [

@@ -1,88 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/redux/hooks'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-// Mock data for reports
-const reports = [
-  {
-    id: 1,
-    title: 'Water Pipeline Burst',
-    description: 'Major water pipeline burst on Main Street causing flooding',
-    priority: 'critical',
-    status: 'pending',
-    department: 4,
-    assignedTo: 13,
-    location: 'Main Street, Sector 5',
-    createdAt: '2024-01-15T10:30:00Z',
-    updatedAt: '2024-01-15T10:30:00Z'
-  },
-  {
-    id: 2,
-    title: 'Road Pothole Repair',
-    description: 'Large pothole on Highway 23 needs immediate attention',
-    priority: 'high',
-    status: 'in_progress',
-    department: 2,
-    assignedTo: 9,
-    location: 'Highway 23, Km 15',
-    createdAt: '2024-01-14T14:20:00Z',
-    updatedAt: '2024-01-15T09:15:00Z'
-  },
-  {
-    id: 3,
-    title: 'Street Light Malfunction',
-    description: 'Multiple street lights not working in residential area',
-    priority: 'medium',
-    status: 'resolved',
-    department: 3,
-    assignedTo: 11,
-    location: 'Green Valley Colony',
-    createdAt: '2024-01-13T16:45:00Z',
-    updatedAt: '2024-01-14T12:30:00Z'
-  },
-  {
-    id: 4,
-    title: 'Park Maintenance Required',
-    description: 'Central park needs cleaning and maintenance',
-    priority: 'low',
-    status: 'pending',
-    department: 5,
-    assignedTo: 15,
-    location: 'Central Park',
-    createdAt: '2024-01-12T11:00:00Z',
-    updatedAt: '2024-01-12T11:00:00Z'
-  },
-  {
-    id: 5,
-    title: 'Sewage Overflow',
-    description: 'Sewage overflow near residential complex',
-    priority: 'critical',
-    status: 'in_progress',
-    department: 1,
-    assignedTo: 7,
-    location: 'Sunrise Apartments',
-    createdAt: '2024-01-15T08:00:00Z',
-    updatedAt: '2024-01-15T10:00:00Z'
-  }
-]
-
-const departments = [
-  { id: 1, name: 'Sanitation Department' },
-  { id: 2, name: 'Public Works Department' },
-  { id: 3, name: 'Electrical Department' },
-  { id: 4, name: 'Water Department' },
-  { id: 5, name: 'Parks Department' }
-]
-
-const users = [
-  { id: 7, name: 'Staff A' },
-  { id: 9, name: 'Staff C' },
-  { id: 11, name: 'Staff E' },
-  { id: 13, name: 'Staff G' },
-  { id: 15, name: 'Staff I' }
-]
+import { reports, departments, users } from '@/lib/seedData'
 import { priorityColors, statusColors, formatDate } from '@/lib/utils'
 import { Filter, Search, Plus } from 'lucide-react'
 
@@ -91,6 +14,7 @@ export default function ReportsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [priorityFilter, setPriorityFilter] = useState('all')
+  const router = useRouter()
 
   // Filter reports based on user role
   const getFilteredReports = () => {
@@ -107,7 +31,9 @@ export default function ReportsPage() {
     if (searchTerm) {
       filteredReports = filteredReports.filter(r => 
         r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        r.category.toLowerCase().includes(searchTerm.toLowerCase())
+        r.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        r.location.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -223,34 +149,77 @@ export default function ReportsPage() {
               <p className="text-gray-400 text-sm mt-2">Try adjusting your filters or search terms.</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredReports.map((report) => {
                 const department = departments.find(d => d.id === report.department)
                 const assignedUser = users.find(u => u.id === report.assignedTo)
                 
                 return (
-                  <div key={report.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <h3 className="font-semibold text-lg">#{report.id}</h3>
-                          <span className={`px-2 py-1 rounded-full text-xs border ${priorityColors[report.priority as keyof typeof priorityColors]}`}>
-                            {report.priority}
-                          </span>
-                          <span className={`px-2 py-1 rounded-full text-xs border ${statusColors[report.status as keyof typeof statusColors]}`}>
-                            {report.status.replace('_', ' ')}
-                          </span>
-                        </div>
-                        <h4 className="font-medium text-gray-900 mb-1">{report.title}</h4>
-                        <p className="text-sm text-gray-600 mb-2">Category: {report.category}</p>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
-                          <span>Department: {department?.name}</span>
-                          <span>Assigned to: {assignedUser?.name || 'Unassigned'}</span>
-                          <span>Created: {formatDate(report.createdAt)}</span>
-                        </div>
+                  <Card key={report.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    {/* Report Image */}
+                    <div className="relative">
+                      <img
+                        src={report.image}
+                        alt={report.title}
+                        className="w-full h-48 object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/400x300/e5e7eb/6b7280?text=Image+Not+Available';
+                        }}
+                      />
+                      <div className="absolute top-3 left-3">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityColors[report.priority as keyof typeof priorityColors]}`}>
+                          {report.priority.toUpperCase()}
+                        </span>
                       </div>
+                      <div className="absolute top-3 right-3">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[report.status as keyof typeof statusColors]}`}>
+                          {report.status.replace('_', ' ').toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Report Content */}
+                    <CardContent className="p-4">
+                      <div className="mb-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="font-semibold text-gray-900">#{report.id}</h3>
+                          <span className="text-xs text-gray-500">{formatDate(report.createdAt)}</span>
+                        </div>
+                        <h4 className="font-medium text-gray-900 mb-2 line-clamp-2">{report.title}</h4>
+                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                          {report.description}
+                        </p>
+                      </div>
+
+                      {/* Department and Assignment Info */}
+                      <div className="space-y-1 mb-4 text-xs text-gray-500">
+                        <div className="flex items-center justify-between">
+                          <span>Department:</span>
+                          <span className="font-medium">{department?.name}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span>Assigned to:</span>
+                          <span className="font-medium">{assignedUser?.name || 'Unassigned'}</span>
+                        </div>
+                        {report.location && (
+                          <div className="flex items-center justify-between">
+                            <span>Location:</span>
+                            <span className="font-medium truncate ml-2" title={report.location}>
+                              {report.location.length > 20 ? `${report.location.substring(0, 20)}...` : report.location}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Action Buttons */}
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={() => router.push(`/reports/${report.id}`)}
+                        >
                           View Details
                         </Button>
                         {(user?.role === 'admin' || user?.role === 'department_head') && (
@@ -259,8 +228,8 @@ export default function ReportsPage() {
                           </Button>
                         )}
                       </div>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 )
               })}
             </div>

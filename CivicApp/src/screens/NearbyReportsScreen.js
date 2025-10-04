@@ -20,8 +20,176 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import Svg, { Path, Circle, G, Rect } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
+
+// CUSTOM SVG HOME ICON COMPONENT
+const HomeSvgIcon = ({ size = 24, color = "#000" }) => (
+  <Svg width={size} height={size} viewBox="0 0 16 16">
+    <Path
+      d="M7.994.303.641 7.656l.709.707.652-.652v8.3h5.006V11.01h2v5.002h4.994V7.725l.785.785h.207v-1h.21L7.993.303zm.002 1.414 5.006 5.008v8.287h-2.994V10.01h-4v5.002H3.002V6.71l4.994-4.994z"
+      fill={color}
+    />
+  </Svg>
+);
+
+// CUSTOM SVG REPORTS ICON COMPONENT
+const ReportsSvgIcon = ({ size = 24, color = "#000" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24">
+    <Path
+      d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+      fill={color}
+    />
+  </Svg>
+);
+
+// CUSTOM SVG NEARBY ICON COMPONENT
+const NearbySvgIcon = ({ size = 24, color = "#000" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24">
+    <Path
+      d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
+      fill={color}
+    />
+  </Svg>
+);
+
+// CUSTOM SVG USER ICON COMPONENT
+const UserSvgIcon = ({ size = 24, color = "#000" }) => (
+  <Svg width={size} height={size} viewBox="0 0 16 16">
+    <Path
+      d="M8.467 1037.328a3.291 3.291 0 0 0-3.282 3.286 3.29 3.29 0 0 0 3.282 3.285 3.29 3.29 0 0 0 3.282-3.285 3.291 3.291 0 0 0-3.282-3.286zm0 .939c1.3 0 2.344 1.045 2.344 2.347a2.339 2.339 0 0 1-2.344 2.347 2.339 2.339 0 0 1-2.344-2.347 2.339 2.339 0 0 1 2.344-2.347zm-3.013 6.57c-1.441 0-2.62 1.168-2.62 2.605v4.42a.469.47 0 0 0 .468.469h10.332a.469.47 0 0 0 .467-.47V1047.443c0-1.437-1.18-2.604-2.621-2.604H5.454zm0 .94h6.026c.943 0 1.685.738 1.685 1.665V1051.392H3.77v-3.95c0-.927.74-1.665 1.683-1.665z"
+      fill={color}
+      transform="translate(-1.03 -1106.225)scale(1.06642)"
+    />
+  </Svg>
+);
+
+// EXCEPTIONAL PROFESSIONAL SIH-WINNING TAB ICON COMPONENT
+const ExceptionalProfessionalTabIcon = ({ focused, iconName, label, labelEn, color }) => {
+  const [scaleAnim] = React.useState(new Animated.Value(1));
+  const [pulseAnim] = React.useState(new Animated.Value(1));
+  
+  React.useEffect(() => {
+    if (focused) {
+      // Scale animation for tap feedback
+      Animated.sequence([
+        Animated.timing(scaleAnim, {
+          toValue: 1.15,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      // Continuous pulse animation for active tab
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.05,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    } else {
+      pulseAnim.setValue(1);
+    }
+  }, [focused, scaleAnim, pulseAnim]);
+
+  return (
+    <Animated.View style={{ 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      transform: [{ scale: scaleAnim }],
+      paddingVertical: 8,
+    }}>
+      {/* EXCEPTIONAL GRADIENT BACKGROUND FOR ACTIVE TAB */}
+      {focused && (
+        <LinearGradient
+          colors={['#667eea', '#764ba2']}
+          style={{
+            position: 'absolute',
+            width: 60,
+            height: 45,
+            borderRadius: 22,
+            opacity: 0.15,
+          }}
+        />
+      )}
+      
+      {/* PROFESSIONAL ICON CONTAINER WITH PULSE ANIMATION */}
+      <Animated.View style={{
+        width: 52,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: focused ? '#ffffff' : 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 6,
+        elevation: focused ? 8 : 0,
+        shadowColor: '#667eea',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: focused ? 0.3 : 0,
+        shadowRadius: 8,
+        borderWidth: focused ? 2 : 0,
+        borderColor: focused ? '#667eea' : 'transparent',
+        transform: [{ scale: pulseAnim }]
+      }}>
+        {iconName === "home-svg" ? (
+          <HomeSvgIcon 
+            size={focused ? 24 : 22}
+            color={focused ? '#667eea' : '#757575'} 
+          />
+        ) : iconName === "reports-svg" ? (
+          <ReportsSvgIcon 
+            size={focused ? 24 : 22}
+            color={focused ? '#667eea' : '#757575'} 
+          />
+        ) : iconName === "nearby-svg" ? (
+          <NearbySvgIcon 
+            size={focused ? 24 : 22}
+            color={focused ? '#667eea' : '#757575'} 
+          />
+        ) : iconName === "user-svg" ? (
+          <UserSvgIcon 
+            size={focused ? 24 : 22}
+            color={focused ? '#667eea' : '#757575'} 
+          />
+        ) : null}
+      </Animated.View>
+      
+      {/* PROFESSIONAL BILINGUAL LABELS */}
+      <Text style={{ 
+        color: focused ? '#667eea' : '#757575', 
+        fontSize: 11, 
+        fontWeight: focused ? 'bold' : '600',
+        textAlign: 'center',
+        marginBottom: 1,
+      }}>
+        {label}
+      </Text>
+      <Text style={{ 
+        color: focused ? '#667eea' : '#9e9e9e', 
+        fontSize: 9, 
+        fontWeight: focused ? '500' : '400',
+        textAlign: 'center',
+        opacity: focused ? 0.8 : 0.6,
+      }}>
+        {labelEn}
+      </Text>
+    </Animated.View>
+  );
+};
 
 export default function NearbyReportsScreen({ navigation }) {
   const [searchText, setSearchText] = useState('');
@@ -515,7 +683,7 @@ export default function NearbyReportsScreen({ navigation }) {
               {/* Priority Badge */}
               <View style={[styles.priorityBadge, { backgroundColor: report.priorityColor }]}>
                 <Text style={styles.priorityText}>
-                  {report.priorityLevel === 'high' ? '🔴' : 
+                  {report.priorityLevel === 'high' ? '🔴' :
                    report.priorityLevel === 'medium' ? '🟡' : '🟢'}
                 </Text>
               </View>
@@ -884,7 +1052,7 @@ export default function NearbyReportsScreen({ navigation }) {
         ListFooterComponent={
           <View style={styles.listFooter}>
             <Text style={styles.footerText}>
-              झारखंड सिविक सेवाएं / Jharkhand Civic Services
+              सुधार सेतु / Sudhaar Setu
             </Text>
             <Text style={styles.footerSubtext}>
               सरकारी शिकायत प्रबंधन प्रणाली / Government Complaint Management System
@@ -901,52 +1069,65 @@ export default function NearbyReportsScreen({ navigation }) {
         })}
       />
 
-      {/* Professional Bottom Navigation with Working Functionality */}
-      <View style={styles.bottomNavigation}>
+      {/* EXCEPTIONAL PROFESSIONAL SIH-WINNING BOTTOM NAVIGATION */}
+      <View style={styles.exceptionalProfessionalBottomNavigation}>
         <TouchableOpacity 
-          style={[styles.navItem, styles.navItemHome]}
+          style={styles.exceptionalNavItem} 
           onPress={() => {
             Vibration.vibrate(30);
             navigation.navigate('Home');
-          }}
-          activeOpacity={0.7}
+          }} 
+          activeOpacity={0.8}
         >
-          <Text style={styles.navIcon}>🏠</Text>
-          <Text style={styles.navLabel}>होम / Home</Text>
+          <ExceptionalProfessionalTabIcon 
+            focused={false}
+            iconName="home-svg"
+            label="होम"
+            labelEn="Home"
+            color="#757575"
+          />
         </TouchableOpacity>
         
         <TouchableOpacity 
-          style={[styles.navItem, styles.navItemReports]}
+          style={styles.exceptionalNavItem} 
           onPress={() => {
             Vibration.vibrate(30);
             navigation.navigate('ReportsScreen');
-          }}
-          activeOpacity={0.7}
+          }} 
+          activeOpacity={0.8}
         >
-          <Text style={styles.navIcon}>📋</Text>
-          <Text style={styles.navLabel}>रिपोर्ट्स / Reports</Text>
+          <ExceptionalProfessionalTabIcon 
+            focused={false}
+            iconName="reports-svg"
+            label="रिपोर्ट्स"
+            labelEn="Reports"
+            color="#757575"
+          />
         </TouchableOpacity>
         
         <TouchableOpacity 
-          style={[styles.navItem, styles.navItemNearby, styles.navItemActive]}
+          style={styles.exceptionalNavItem} 
           onPress={() => {
             Vibration.vibrate(50);
-            // Already on nearby screen - show professional feedback
             Alert.alert(
               'वर्तमान स्क्रीन / Current Screen',
               'आप पहले से ही पास की शिकायतों वाली स्क्रीन पर हैं।\n\nYou are already on the nearby complaints screen.',
               [{ text: 'ठीक है / OK' }]
             );
-          }}
-          activeOpacity={0.7}
+          }} 
+          activeOpacity={0.8}
         >
-          <Text style={styles.navIcon}>📍</Text>
-          <Text style={styles.navLabel}>पास की / Nearby</Text>
-          <View style={styles.activeIndicator} />
+          <ExceptionalProfessionalTabIcon 
+            focused={true}
+            iconName="nearby-svg"
+            label="पास की"
+            labelEn="Nearby"
+            color="#667eea"
+          />
         </TouchableOpacity>
         
         <TouchableOpacity 
-          style={[styles.navItem, styles.navItemProfile]}
+          style={styles.exceptionalNavItem} 
           onPress={() => {
             Vibration.vibrate(30);
             Alert.alert(
@@ -957,11 +1138,16 @@ export default function NearbyReportsScreen({ navigation }) {
                 { text: 'सेटिंग्स / Settings', onPress: () => navigation.navigate('Settings') }
               ]
             );
-          }}
-          activeOpacity={0.7}
+          }} 
+          activeOpacity={0.8}
         >
-          <Text style={styles.navIcon}>👤</Text>
-          <Text style={styles.navLabel}>प्रोफाइल / Profile</Text>
+          <ExceptionalProfessionalTabIcon 
+            focused={false}
+            iconName="user-svg"
+            label="प्रोफ़ाइल"
+            labelEn="Profile"
+            color="#757575"
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -1216,41 +1402,30 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#9ca3af',
   },
-  bottomNavigation: {
+  // EXCEPTIONAL PROFESSIONAL SIH-WINNING BOTTOM NAVIGATION STYLES
+  exceptionalProfessionalBottomNavigation: {
     flexDirection: 'row',
     backgroundColor: '#ffffff',
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-    elevation: 5,
-  },
-  navItem: {
-    flex: 1,
+    borderTopWidth: 0,
+    elevation: 25,
+    shadowColor: '#667eea',
+    shadowOffset: { width: 0, height: -8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    height: Platform.OS === 'ios' ? 95 : 85,
+    paddingBottom: Platform.OS === 'ios' ? 20 : 12,
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
-  navIcon: {
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  navLabel: {
-    fontSize: 10,
-    color: '#6b7280',
-    textAlign: 'center',
-  },
-  
-  // Professional Navigation Active States
-  navItemActive: {
-    backgroundColor: '#eff6ff',
-    borderRadius: 12,
-    paddingVertical: 8,
-  },
-  activeIndicator: {
-    position: 'absolute',
-    bottom: -2,
-    width: 20,
-    height: 3,
-    backgroundColor: '#3b82f6',
-    borderRadius: 2,
+  exceptionalNavItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 4,
   },
   
   // Advanced Complaint Card Styles
